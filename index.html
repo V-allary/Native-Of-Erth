@@ -213,7 +213,59 @@
     }
     .socials { display: flex; gap: 18px; }
 
+    /* ---------- Quick view ---------- */
+    .qv-overlay {
+      position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.5);
+      display: flex; align-items: center; justify-content: center; padding: 24px;
+      opacity: 0; visibility: hidden; transition: opacity .25s, visibility .25s;
+    }
+    .qv-overlay.open { opacity: 1; visibility: visible; }
+    .qv-modal {
+      position: relative; background: var(--white); width: 100%; max-width: 980px; max-height: 90vh;
+      overflow: auto; display: grid; grid-template-columns: 1.1fr 1fr;
+      transform: translateY(16px); transition: transform .25s ease;
+    }
+    .qv-overlay.open .qv-modal { transform: none; }
+    .qv-close { position: absolute; top: 12px; right: 12px; z-index: 3; width: 36px; height: 36px; display: grid; place-items: center; background: var(--white); }
+    .qv-gallery { background: var(--grey-100); }
+    .qv-main { aspect-ratio: 3 / 4; }
+    .qv-thumbs { display: flex; gap: 8px; padding: 12px; overflow-x: auto; }
+    .qv-thumbs:empty { display: none; }
+    .qv-thumbs button { flex: 0 0 64px; width: 64px; aspect-ratio: 3 / 4; overflow: hidden; opacity: .5; border: 1px solid transparent; }
+    .qv-thumbs button.active { opacity: 1; border-color: var(--black); }
+    .qv-info { padding: 44px 36px 36px; display: flex; flex-direction: column; gap: 20px; }
+    .qv-badge { align-self: flex-start; font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; border: 1px solid var(--black); padding: 3px 8px; }
+    .qv-badge:empty { display: none; }
+    .qv-info h2 { font-size: 22px; font-weight: 600; text-transform: uppercase; letter-spacing: .02em; line-height: 1.2; }
+    .qv-price { font-size: 16px; margin-top: -10px; }
+    .qv-desc { color: #444; font-size: 13px; line-height: 1.65; }
+    .qv-label { display: flex; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 10px; }
+    .qv-label span { font-weight: 400; color: var(--grey-500); letter-spacing: .04em; text-transform: none; font-size: 12px; }
+    .qv-guide { margin-left: auto; font-weight: 400; text-decoration: underline; text-underline-offset: 3px; }
+    .qv-swatches { display: flex; gap: 12px; }
+    .qv-swatches button { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--grey-200); }
+    .qv-swatches button.active { outline: 1px solid var(--black); outline-offset: 3px; }
+    .qv-sizes { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+    .qv-sizes button { border: 1px solid var(--grey-200); padding: 12px 0; font-size: 12px; font-weight: 500; transition: border-color .2s; }
+    .qv-sizes button:hover { border-color: var(--black); }
+    .qv-sizes button.active { background: var(--black); color: var(--white); border-color: var(--black); }
+    .qv-sizes button:disabled { color: #bbb; text-decoration: line-through; cursor: not-allowed; border-color: var(--grey-200); }
+    .qv-actions { display: flex; gap: 10px; }
+    .qv-qty { display: flex; align-items: center; border: 1px solid var(--grey-200); }
+    .qv-qty button { width: 40px; height: 100%; font-size: 16px; }
+    .qv-qty span { min-width: 24px; text-align: center; }
+    .qv-add { flex: 1; padding: 16px; }
+    .qv-msg { font-size: 12px; min-height: 16px; margin-top: -8px; color: #b00020; }
+    .qv-msg.ok { color: #1b7f3b; }
+    .qv-details { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; text-decoration: underline; text-underline-offset: 3px; }
+
     /* ---------- Responsive ---------- */
+    /* Medium screens: stop the menu running into the logo */
+    @media (max-width: 1200px) {
+      .nav-left { gap: 18px; }
+      .nav-left a, .nav-right a { font-size: 11px; }
+      .logo { font-size: 17px; letter-spacing: .24em; }
+    }
     @media (max-width: 1024px) {
       .products { grid-template-columns: repeat(3, 1fr); }
       .categories { grid-template-columns: repeat(3, 1fr); }
@@ -224,8 +276,11 @@
       :root { --gutter: 16px; }
       .nav-left, .nav-right .hide-sm { display: none; }
       .menu-btn { display: flex; }
-      .header-inner { height: 56px; }
-      .logo { font-size: 15px; letter-spacing: .24em; }
+      .header-inner { height: 56px; column-gap: 8px; }
+      .logo { font-size: 12px; letter-spacing: .14em; }
+      .nav-right { gap: 14px; }
+      .nav-right .icon, .menu-btn .icon { width: 18px; height: 18px; }
+      .cart-count { right: -7px; }
       .hero { height: 78vh; min-height: 440px; }
       .tiles { grid-template-columns: 1fr; }
       .products {
@@ -239,13 +294,17 @@
       .section { padding-top: 56px; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
       .footer-brand { grid-column: 1 / -1; }
+      .qv-overlay { padding: 0; align-items: flex-end; }
+      .qv-modal { grid-template-columns: 1fr; max-height: 92vh; }
+      .qv-main { aspect-ratio: 4 / 5; }
+      .qv-info { padding: 24px 16px 32px; }
     }
   </style>
 </head>
 <body>
 
   <!-- Announcement bar -->
-  <div class="announce">Mens Wear Collections &nbsp;·&nbsp;Coming soon</div>
+  <div class="announce">Native Of Erth &nbsp;·&nbsp;Coming soon</div>
 
   <!-- Header -->
   <header>
@@ -265,11 +324,11 @@
 
       <div class="nav-right">
         <a href="#" aria-label="Account">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="8" r="4"/>
-              <path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>
-            </svg>
-          </a>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>
+          </svg>
+        </a>
         <a href="#" aria-label="Search">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
         </a>
@@ -294,6 +353,7 @@
       <a href="#shop" onclick="toggleDrawer(false)">Men</a>
       <a href="#collections" onclick="toggleDrawer(false)">Collections</a>
       <a href="#accessories" onclick="toggleDrawer(false)">Accessories — Soon</a>
+      <a href="about.html">About</a>
       <a href="#" onclick="toggleDrawer(false)">Account</a>
     </nav>
   </div>
@@ -406,7 +466,7 @@
         <div>
           <h4>Company</h4>
           <ul>
-            <li><a href="#">About</a></li>
+            <li><a href="about.html">About</a></li>
             <li><a href="#">Stores</a></li>
             <li><a href="#">Terms</a></li>
             <li><a href="#">Privacy</a></li>
@@ -424,56 +484,160 @@
     </div>
   </footer>
 
-  <script>
-    // ---- Product data (swap images/names/prices for real ones) ----
-    const products = [
-  { name: "Box Logo Tee", color: "Navy", price: 120, badge: "New", img: "NOF-IMG/IMG7.jpeg", hover: "NOF-IMG/IMG8.jpeg" },
-  { name: "Zigzag Graphic Tee", color: "Charcoal", price: 140, badge: "New", img: "NOF-IMG/IMG11.jpeg", hover: "NOF-IMG/IMG10.jpeg" },
-  { name: "Native Hoodie", color: "Forest Green ", price: 55, img: "NOF-IMG/IMG4.jpeg", hover: "NOF-IMG/IMG3.jpeg" },
-  { name: "Globe Tee", color: "White", price: 180, badge: "New", img: "NOF-IMG/IMG12.jpeg", hover: "NOF-IMG/IMG13.jpeg" },
-  { name: "Neo Eon One Tee", color: "Stone Grey", price: 220, img: "NOF-IMG/IMG1.jpeg", hover: "NOF-IMG/IMG2.jpeg" },
-  { name: "N Logo Hoodie", color: "Forest Green,Earth Brown", price: 110, img: "NOF-IMG/IMG5.jpeg", hover: "NOF-IMG/IMG14.jpeg" },
-  { name: "ZigZag Washed Tee", color: "Vintage Black", price: 150, img: "NOF-IMG/IMG15.jpeg", hover: "NOF-IMG/IMG15.jpeg" },
-  { name: "Neo Eon One Tee", color: "Navy", price: 75, badge: "Best Seller", img: "NOF-IMG/IMG9.jpeg" },
-];
+  <!-- Quick view popup -->
+  <div class="qv-overlay" id="qv" aria-hidden="true" onclick="if (event.target === this) closeQuickView()">
+    <div class="qv-modal" role="dialog" aria-modal="true" aria-labelledby="qvName">
+      <button class="qv-close" onclick="closeQuickView()" aria-label="Close">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
 
-const categories = [
-      { name: "Outerwear", img: "NOF-IMG/IMG1.jpeg" },
-      { name: "Best Sellers",   img: "NOF-IMG/IMG7.jpeg" },
-      { name: "Hoodies",  img: "NOF-IMG/IMG4.jpeg" },
-      { name: "New Arrivals",     img: "NOF-IMG/IMG11.jpeg" },
-      { name: "Causal Wear",     img: "NOF-IMG/IMG15.jpeg" },
-      { name: "Hoodies",  img: "NOF-IMG/IMG5.jpeg" },
+      <div class="qv-gallery">
+        <div class="qv-main"><img id="qvImg" src="" alt="" /></div>
+        <div class="qv-thumbs" id="qvThumbs"></div>
+      </div>
+
+      <div class="qv-info">
+        <span class="qv-badge" id="qvBadge"></span>
+        <h2 id="qvName"></h2>
+        <div class="qv-price" id="qvPrice"></div>
+        <p class="qv-desc" id="qvDesc"></p>
+
+        <div>
+          <div class="qv-label">Color: <span id="qvColorName"></span></div>
+          <div class="qv-swatches" id="qvColors"></div>
+        </div>
+
+        <div>
+          <div class="qv-label">Size <a href="#" class="qv-guide">Size guide</a></div>
+          <div class="qv-sizes" id="qvSizes"></div>
+        </div>
+
+        <div class="qv-actions">
+          <div class="qv-qty">
+            <button onclick="changeQty(-1)" aria-label="Decrease quantity">−</button>
+            <span id="qvQty">1</span>
+            <button onclick="changeQty(1)" aria-label="Increase quantity">+</button>
+          </div>
+          <button class="btn btn-dark qv-add" onclick="addFromQuickView()">Add to Cart</button>
+        </div>
+        <div class="qv-msg" id="qvMsg"></div>
+        <a href="#" class="qv-details">View full details</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =====================================================================
+    //  PRODUCTS — edit this list to change what shows on the site
+    //  Each product has a list of colors. Each color has:
+    //    name   – shown to the customer
+    //    hex    – the swatch color (search "<color> hex code" to find one)
+    //    images – as many photos as you want. 1st = main photo, 2nd = hover photo
+    //  If a color has no photos yet, leave images out and it reuses the first color's photos.
+    // =====================================================================
+    const products = [
+      { name: "Box Logo Tee", price: 120, badge: "New",
+        colors: [
+          { name: "Charcoal",    hex: "#3b3b3b", images: ["NOF-IMG/IMG7.jpeg", "NOF-IMG/IMG8.jpeg"] },
+          { name: "Gray",        hex: "#8e8e8e" },
+          { name: "Olive Green", hex: "#6b6b3a" },
+          { name: "Pink",        hex: "#f2b8c6" }
+        ] },
+
+      { name: "Zigzag Graphic Tee", price: 140, badge: "New",
+        colors: [
+          { name: "Gray",  hex: "#8e8e8e", images: ["NOF-IMG/IMG11.jpeg", "NOF-IMG/IMG10.jpeg", "NOF-IMG/IMG15.jpeg"] },
+          { name: "Black", hex: "#111111" },
+          { name: "White", hex: "#f4f4f4" },
+          { name: "Cream", hex: "#efe6d2" }
+        ] },
+
+      { name: "Native Hoodie", price: 55,
+        colors: [
+          { name: "Forest Green", hex: "#1f5e3b", images: ["NOF-IMG/IMG4.jpeg", "NOF-IMG/IMG3.jpeg"] }
+        ] },
+
+      { name: "Globe Tee", price: 180, badge: "New",
+        colors: [
+          { name: "White", hex: "#f4f4f4", images: ["NOF-IMG/IMG16.jpeg", "NOF-IMG/IMG13.jpeg"] }
+        ] },
+
+      { name: "Neo Eon One Tee", price: 220,
+        colors: [
+          { name: "Gray",      hex: "#8e8e8e", images: ["NOF-IMG/IMG1.jpeg", "NOF-IMG/IMG2.jpeg"] },
+          { name: "Off White", hex: "#f3f0e8" },
+          { name: "Black",     hex: "#111111" },
+          { name: "Cream",     hex: "#efe6d2" }
+        ] },
+
+      { name: "N Logo Hoodie", price: 110,
+        colors: [
+          { name: "Pine Green",  hex: "#234f3c", images: ["NOF-IMG/IMG5.jpeg", "NOF-IMG/IMG14.jpeg"] },
+          { name: "Brown",       hex: "#6b4a2f" },   // add images: ["NOF-IMG/....jpeg"] when you have them
+          { name: "Olive Green", hex: "#6b6b3a" },
+          { name: "Gray",        hex: "#8e8e8e" }
+        ] },
+
+      { name: "Native Hoodies", price: 150, badge: "Coming Soon",
+        colors: [
+          { name: "Vintage Black", hex: "#2b2b2b", images: ["NOF-IMG/IMG21.jpeg", "NOF-IMG/IMG17.jpeg", "NOF-IMG/IMG18.jpeg", "NOF-IMG/IMG19.jpeg", "NOF-IMG/IMG20.jpeg"] },
+          { name: "Brown",       hex: "#6b4a2f" },   // add images: ["NOF-IMG/....jpeg"] when you have them
+          { name: "Olive Green", hex: "#6b6b3a" },
+          { name: "Gray",        hex: "#8e8e8e" }
+        ] },
+
+      { name: "Neo Eon One Tee", price: 75, badge: "Best Seller",
+        colors: [
+          { name: "Navy", hex: "#1f2a44", images: ["NOF-IMG/IMG9.jpeg"] }
+        ] },
     ];
 
+    const categories = [
+      { name: "Outerwear",    img: "NOF-IMG/IMG1.jpeg" },
+      { name: "Best Sellers", img: "NOF-IMG/IMG7.jpeg" },
+      { name: "Hoodies",      img: "NOF-IMG/IMG4.jpeg" },
+      { name: "New Arrivals", img: "NOF-IMG/IMG11.jpeg" },
+      { name: "Casual Wear",  img: "NOF-IMG/IMG15.jpeg" },
+      { name: "Hoodies",      img: "NOF-IMG/IMG5.jpeg" },
+    ];
+
+    // Photos from the first color that has any (used on the card and as a fallback)
+    function firstImages(p) {
+      const withPhotos = p.colors && p.colors.find(c => c.images && c.images.length);
+      return withPhotos ? withPhotos.images : [p.img, p.hover].filter(Boolean);
+    }
+
+    // ---- Product grid ----
     const grid = document.getElementById("productGrid");
-    grid.innerHTML = products.map((p, i) => `
+    grid.innerHTML = products.map((p, i) => {
+      const imgs = firstImages(p);
+      const colorCount = p.colors ? p.colors.length : 1;
+      const colorText = colorCount > 1 ? colorCount + " colors" : (p.colors ? p.colors[0].name : p.color);
+      return `
       <a href="#" class="product">
         <div class="img-wrap">
           ${p.badge ? `<span class="badge">${p.badge}</span>` : ""}
-          <img src="${p.img}" alt="${p.name}" loading="lazy" />
-          ${p.hover ? `<img class="alt" src="${p.hover}" alt="" loading="lazy" />` : ""}
-          <button class="quick-add" onclick="addToCart(event)">Quick Add</button>
+          <img src="${imgs[0]}" alt="${p.name}" loading="lazy" />
+          ${imgs[1] ? `<img class="alt" src="${imgs[1]}" alt="" loading="lazy" />` : ""}
+          <button class="quick-add" onclick="openQuickView(event, ${i})">Quick Add</button>
         </div>
         <div class="product-info">
           <span class="name">${p.name}</span>
-          <span class="meta">${p.color}</span>
+          <span class="meta">${colorText}</span>
           <span>$${p.price}</span>
         </div>
-      </a>`).join("");
+      </a>`;
+    }).join("");
 
-      document.getElementById("catGrid").innerHTML = categories.map(c => `
+    // ---- Category grid ----
+    document.getElementById("catGrid").innerHTML = categories.map(c => `
       <a href="#" class="cat">
         <div class="img-wrap"><img src="${c.img}" alt="${c.name}" loading="lazy" /></div>
         <span>${c.name}</span>
       </a>`).join("");
+
     // ---- Simple interactions ----
     let cart = 0;
-    function addToCart(e) {
-      e.preventDefault(); e.stopPropagation();
-      cart++;
-      document.getElementById("cartCount").textContent = cart;
-    }
 
     function toggleDrawer(open) {
       const d = document.getElementById("drawer");
@@ -490,15 +654,98 @@ const categories = [
     }
 
     document.getElementById("year").textContent = new Date().getFullYear();
-  
-    // Transparent header -> solid on scroll
+
+    // ---- Transparent header -> solid on scroll ----
     const siteHeader = document.querySelector("header");
     function updateHeader() {
       siteHeader.classList.toggle("scrolled", window.scrollY > 40);
     }
     window.addEventListener("scroll", updateHeader, { passive: true });
     updateHeader();
-  
+
+    // ---- Quick view ----
+    const colorHex = {
+      "Navy": "#1f2a44", "Charcoal": "#3b3b3b", "Forest Green": "#1f5e3b", "White": "#f4f4f4",
+      "Black": "#111111", "Sky Blue": "#bcd9ea", "Stone Grey": "#9a9690", "Vintage Black": "#2b2b2b",
+      "Heather Grey": "#b7b7b7", "Olive": "#6b6b3a", "Sand": "#d8c7a3", "Bone": "#e9e2d0", "Earth Brown": "#6b4a2f"
+    };
+    const defaultSizes = ["S", "M", "L", "XL", "XXL"];
+    const defaultDesc = "Premium heavyweight cotton with a relaxed fit. Designed by Native of Erth to be worn hard and kept for years.";
+    let qv = {};
+    const $ = id => document.getElementById(id);
+
+    // Turns a product into a list of colors, each with its own photos
+    function getColors(p) {
+      const base = firstImages(p);
+      if (!p.colors) return [{ name: p.color, hex: colorHex[p.color] || "#999", images: base }];
+      return p.colors.map(c => typeof c === "string"
+        ? { name: c, hex: colorHex[c] || "#999", images: base }
+        : { name: c.name, hex: c.hex || colorHex[c.name] || "#999",
+            images: (c.images && c.images.length) ? c.images : base });
+    }
+
+    function openQuickView(e, i) {
+      e.preventDefault(); e.stopPropagation();
+      const p = products[i];
+      qv = { p, colors: getColors(p), color: null, size: null, qty: 1, images: [] };
+
+      $("qvBadge").textContent = p.badge || "";
+      $("qvName").textContent = p.name;
+      $("qvPrice").textContent = `$${p.price}`;
+      $("qvDesc").textContent = p.description || defaultDesc;
+
+      $("qvColors").innerHTML = qv.colors.map((c, n) =>
+        `<button aria-label="${c.name}" title="${c.name}" style="background:${c.hex}" onclick="selectColor(${n})"></button>`).join("");
+      selectColor(0);
+
+      const soldOut = p.soldOut || [];
+      $("qvSizes").innerHTML = (p.sizes || defaultSizes).map(s =>
+        `<button ${soldOut.includes(s) ? "disabled" : ""} onclick="selectSize(this, '${s}')">${s}</button>`).join("");
+
+      $("qvQty").textContent = 1;
+      $("qvMsg").textContent = ""; $("qvMsg").className = "qv-msg";
+      $("qv").classList.add("open"); $("qv").setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function renderGallery() {
+      $("qvImg").src = qv.images[0]; $("qvImg").alt = `${qv.p.name} – ${qv.color}`;
+      $("qvThumbs").innerHTML = qv.images.length > 1 ? qv.images.map((src, n) =>
+        `<button class="${n === 0 ? "active" : ""}" onclick="showQvImage(${n})"><img src="${src}" alt="" /></button>`).join("") : "";
+    }
+    function showQvImage(n) {
+      $("qvImg").src = qv.images[n];
+      [...$("qvThumbs").children].forEach((b, k) => b.classList.toggle("active", k === n));
+    }
+    function selectColor(n) {
+      const c = qv.colors[n];
+      qv.color = c.name; qv.images = c.images;
+      $("qvColorName").textContent = c.name;
+      [...$("qvColors").children].forEach((b, k) => b.classList.toggle("active", k === n));
+      renderGallery();
+    }
+    function selectSize(btn, s) {
+      qv.size = s;
+      [...$("qvSizes").children].forEach(b => b.classList.toggle("active", b === btn));
+      $("qvMsg").textContent = "";
+    }
+    function changeQty(d) {
+      qv.qty = Math.min(10, Math.max(1, qv.qty + d));
+      $("qvQty").textContent = qv.qty;
+    }
+    function addFromQuickView() {
+      if (!qv.size) { $("qvMsg").className = "qv-msg"; $("qvMsg").textContent = "Please select a size."; return; }
+      cart += qv.qty;
+      $("cartCount").textContent = cart;
+      $("qvMsg").className = "qv-msg ok";
+      $("qvMsg").textContent = `Added ${qv.qty} × ${qv.p.name} (${qv.color}, ${qv.size}) to your cart.`;
+      setTimeout(closeQuickView, 1300);
+    }
+    function closeQuickView() {
+      $("qv").classList.remove("open"); $("qv").setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+    document.addEventListener("keydown", e => { if (e.key === "Escape") closeQuickView(); });
   </script>
 </body>
 </html>
