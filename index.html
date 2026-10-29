@@ -290,7 +290,6 @@
       }
       .products::-webkit-scrollbar { display: none; }
       .product { scroll-snap-align: start; }
-      .quick-add { display: none; }
       .section { padding-top: 56px; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
       .footer-brand { grid-column: 1 / -1; }
@@ -298,6 +297,15 @@
       .qv-modal { grid-template-columns: 1fr; max-height: 92vh; }
       .qv-main { aspect-ratio: 4 / 5; }
       .qv-info { padding: 24px 16px 32px; }
+    }
+
+    /* Touch screens (phones, tablets): always show Quick Add */
+    @media (hover: none) {
+      .quick-add {
+        opacity: 1; transform: none;
+        left: 8px; right: 8px; bottom: 8px;
+        padding: 9px; font-size: 10px;
+      }
     }
   </style>
 </head>
@@ -614,7 +622,7 @@
       const colorCount = p.colors ? p.colors.length : 1;
       const colorText = colorCount > 1 ? colorCount + " colors" : (p.colors ? p.colors[0].name : p.color);
       return `
-      <a href="#" class="product">
+      <a href="#" class="product" onclick="openQuickView(event, ${i})">
         <div class="img-wrap">
           ${p.badge ? `<span class="badge">${p.badge}</span>` : ""}
           <img src="${imgs[0]}" alt="${p.name}" loading="lazy" />
