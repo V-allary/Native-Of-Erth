@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Native of Erth | Menswear</title>
-  <meta name="description" content="Native of Erth — considered menswear. New arrivals, essentials and seasonal collections." />
+  <title>Native of Earth | Menswear</title>
+  <meta name="description" content="Native of Earth — considered menswear. New arrivals, essentials and seasonal collections." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -123,17 +123,28 @@
     .btn-dark { background: var(--black); color: var(--white); border-color: var(--black); }
     .btn-dark:hover { background: var(--white); color: var(--black); }
 
-    /* ---------- Two-up tiles ---------- */
-    .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 4px; }
-    .tile { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--grey-100); }
-    .tile img { transition: transform .8s ease; }
-    .tile:hover img { transform: scale(1.03); }
-    .tile-label {
-      position: absolute; left: 24px; bottom: 24px; color: var(--white); z-index: 2;
+    /* ---------- Values cards ---------- */
+    .values { padding: 88px 0 16px; }
+    .values-head { text-align: center; margin-bottom: 40px; }
+    .values-head h2 { font-size: clamp(22px, 2.4vw, 32px); font-weight: 600; text-transform: uppercase; margin-top: 8px; }
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .value-card {
+      background: var(--black); color: var(--white);
+      border: 1px solid var(--black);
+      padding: 40px 32px; min-height: 340px;
+      display: flex; flex-direction: column;
+      transition: background .3s ease, color .3s ease, transform .3s ease;
     }
-    .tile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.4), transparent 40%); }
-    .tile-label h2 { font-size: 22px; font-weight: 600; text-transform: uppercase; margin: 4px 0 10px; }
-    .tile-label span.link { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; border-bottom: 1px solid; padding-bottom: 2px; }
+    .value-card:hover { background: var(--white); color: var(--black); transform: translateY(-4px); }
+    .value-num {
+      font-size: 64px; font-weight: 700; line-height: 1; letter-spacing: -.02em;
+      color: transparent; -webkit-text-stroke: 1px currentColor;
+    }
+    .value-card h3 {
+      margin-top: auto; padding-top: 32px;
+      font-size: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: .02em; line-height: 1.2;
+    }
+    .value-card p { margin-top: 14px; font-size: 13px; line-height: 1.7; opacity: .8; }
 
     /* ---------- Section heading ---------- */
     .section { padding: 72px 0 0; }
@@ -282,7 +293,10 @@
       .nav-right .icon, .menu-btn .icon { width: 18px; height: 18px; }
       .cart-count { right: -7px; }
       .hero { height: 78vh; min-height: 440px; }
-      .tiles { grid-template-columns: 1fr; }
+      .values { padding-top: 64px; }
+      .values-grid { grid-template-columns: 1fr; gap: 12px; }
+      .value-card { min-height: 0; padding: 32px 24px; }
+      .value-num { font-size: 48px; }
       .products {
         grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 68%;
         overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px;
@@ -312,7 +326,7 @@
 <body>
 
   <!-- Announcement bar -->
-  <div class="announce">Native Of Erth &nbsp;·&nbsp;Coming soon</div>
+  <div class="announce">Native Of Earth &nbsp;·&nbsp;Coming soon</div>
 
   <!-- Header -->
   <header>
@@ -328,7 +342,7 @@
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
       </button>
 
-      <a href="#" class="logo" aria-label="Native of Erth home">Native of Erth</a>
+      <a href="#" class="logo" aria-label="Native of Earth home">Native of Earth</a>
 
       <div class="nav-right">
         <a href="#" aria-label="Account">
@@ -351,7 +365,7 @@
   <!-- Mobile drawer -->
   <div class="drawer" id="drawer" aria-hidden="true">
     <div class="drawer-top">
-      <span class="logo">Native of Erth</span>
+      <span class="logo">Native of Earth</span>
       <button aria-label="Close menu" onclick="toggleDrawer(false)">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6 6 18"/></svg>
       </button>
@@ -369,7 +383,7 @@
   <main>
     <!-- Hero -->
     <section class="hero">
-      <img src="NOF-IMG/ IMG6.jpeg" alt="Native of Erth Fall/Winter campaign" />
+      <img src="NOF-IMG/IMG7.jpeg" alt="Native of Earth Fall/Winter campaign" />
       <div class="hero-caption">
         <div class="eyebrow">Fall / New look in town 2026</div>
         <h1>Rooted in the Earth</h1>
@@ -377,24 +391,31 @@
       </div>
     </section>
 
-    <!-- Two-up feature tiles -->
-    <section class="tiles" id="collections">
-      <a href="#shop" class="tile">
-        <img src="NOF-IMG/IMG9.jpeg" alt="Outerwear" />
-        <div class="tile-label">
-          <div class="eyebrow">Now Available</div>
-          <h2>Outerwear</h2>
-          <span class="link">Shop Now</span>
+    <!-- Values cards -->
+    <section class="values" id="collections">
+      <div class="container">
+        <div class="values-head">
+          <div class="eyebrow">What We Stand For</div>
+          <h2>Our Values</h2>
         </div>
-      </a>
-      <a href="#shop" class="tile">
-        <img src="NOF-IMG/IMG12.jpeg" alt="Essentials" />
-        <div class="tile-label">
-          <div class="eyebrow">Everyday</div>
-          <h2>The Essentials</h2>
-          <span class="link">Shop Now</span>
+        <div class="values-grid">
+          <div class="value-card">
+            <span class="value-num">01</span>
+            <h3>Look the Feel</h3>
+            <p>What you wear should say how you feel. Every piece is made to carry its own character, so you can show up as yourself, without saying a word.</p>
+          </div>
+          <div class="value-card">
+            <span class="value-num">02</span>
+            <h3>The Status Quo Ain't Us</h3>
+            <p>Where others see waste, we see potential. We challenge the way fashion is made, giving discarded materials a second life instead of following the crowd.</p>
+          </div>
+          <div class="value-card">
+            <span class="value-num">03</span>
+            <h3>Borders Can't Stop the Unity</h3>
+            <p>Native of Earth belongs to everyone who shares the vision. Wherever you're from and wherever you're going, we're connected by the same roots.</p>
+          </div>
         </div>
-      </a>
+      </div>
     </section>
 
     <!-- New arrivals -->
@@ -411,9 +432,10 @@
     <!-- Editorial banner -->
     <section class="container">
       <div class="editorial">
-        <div class="pic"><img src="NOF-IMG/IMG14.jpeg" alt="Native of Erth lookbook" /></div>
+        <div class="pic"><img src="NOF-IMG/IMG14.jpeg" alt="Native of Earth lookbook" /></div>
         <div class="copy">
-          <div class="eyebrow">Lookbook</div>
+          <div class="eyebrow">Artist Zurich Switzerland</div>
+          <h2>Lookbook</h2>
           <h2>Made for the Ground You Walk On</h2>
           <p>Heavyweight fabrics, earthy tones and cuts built to last. Explore the full Fall/Winter story.</p>
           <a href="#" class="btn btn-dark">View Lookbook</a>
@@ -450,7 +472,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <div class="logo">Native of Erth</div>
+          <div class="logo">Native of Earth</div>
           <p>Considered menswear, rooted in the earth. Designed to be worn hard and kept for years.</p>
         </div>
         <div>
@@ -482,7 +504,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span>©️ <span id="year"></span> Native of Erth. All rights reserved.</span>
+        <span>©️ <span id="year"></span> Native of Earth. All rights reserved.</span>
         <div class="socials">
           <a href="#">Instagram</a>
           <a href="#">TikTok</a>
@@ -546,7 +568,7 @@
     const products = [
       { name: "Box Logo Tee", price: 120, badge: "New",
         colors: [
-          { name: "Charcoal",    hex: "#3b3b3b", images: ["NOF-IMG/IMG7.jpeg", "NOF-IMG/IMG8.jpeg"] },
+          { name: "Charcoal",    hex: "#3b3b3b", images: ["NOF-IMG/IMG12.jpeg", "NOF-IMG/IMG8.jpeg"] },
           { name: "Gray",        hex: "#8e8e8e" },
           { name: "Olive Green", hex: "#6b6b3a" },
           { name: "Pink",        hex: "#f2b8c6" }
@@ -554,7 +576,7 @@
 
       { name: "Zigzag Graphic Tee", price: 140, badge: "New",
         colors: [
-          { name: "Gray",  hex: "#8e8e8e", images: ["NOF-IMG/IMG11.jpeg", "NOF-IMG/IMG10.jpeg", "NOF-IMG/IMG15.jpeg"] },
+          { name: "Gray",  hex: "#8e8e8e", images: ["NOF-IMG/IMG10.jpeg", "NOF-IMG/IMG6.jpeg", "NOF-IMG/IMG11.jpeg"] },
           { name: "Black", hex: "#111111" },
           { name: "White", hex: "#f4f4f4" },
           { name: "Cream", hex: "#efe6d2" }
@@ -678,7 +700,7 @@
       "Heather Grey": "#b7b7b7", "Olive": "#6b6b3a", "Sand": "#d8c7a3", "Bone": "#e9e2d0", "Earth Brown": "#6b4a2f"
     };
     const defaultSizes = ["S", "M", "L", "XL", "XXL"];
-    const defaultDesc = "Premium heavyweight cotton with a relaxed fit. Designed by Native of Erth to be worn hard and kept for years.";
+    const defaultDesc = "Premium heavyweight cotton with a relaxed fit. Designed by Native of Earth to be worn hard and kept for years.";
     let qv = {};
     const $ = id => document.getElementById(id);
 
@@ -756,4 +778,4 @@
     document.addEventListener("keydown", e => { if (e.key === "Escape") closeQuickView(); });
   </script>
 </body>
-</html>
+</html> 
