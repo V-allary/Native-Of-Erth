@@ -249,6 +249,7 @@
     .qv-badge:empty { display: none; }
     .qv-info h2 { font-size: 22px; font-weight: 600; text-transform: uppercase; letter-spacing: .02em; line-height: 1.2; }
     .qv-price { font-size: 16px; margin-top: -10px; }
+    .qv-price:empty { display: none; }
     .qv-desc { color: #444; font-size: 13px; line-height: 1.65; }
     .qv-label { display: flex; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 10px; }
     .qv-label span { font-weight: 400; color: var(--grey-500); letter-spacing: .04em; text-transform: none; font-size: 12px; }
@@ -434,7 +435,7 @@
       <div class="editorial">
         <div class="pic"><img src="NOF-IMG/IMG14.jpeg" alt="Native of Earth lookbook" /></div>
         <div class="copy">
-          <div class="eyebrow">Farenizzi,Artist Zurich Switzerland</div>
+          <div class="eyebrow">Farenizzi,Artist Kingston Jamaica</div>
           <h2>Lookbook</h2>
           <h2>Made for the Ground You Walk On</h2>
           <p>Heavyweight fabrics, earthy tones and cuts built to last. Explore the full Fall/Winter story.</p>
@@ -566,7 +567,7 @@
     //  If a color has no photos yet, leave images out and it reuses the first color's photos.
     // =====================================================================
     const products = [
-      { name: "Box Logo Tee", price: 120, badge: "New",
+      { name: "Box Logo Tee",  badge: "New",
         colors: [
           { name: "Charcoal",    hex: "#3b3b3b", images: ["NOF-IMG/IMG12.jpeg", "NOF-IMG/IMG8.jpeg"] },
           { name: "Gray",        hex: "#8e8e8e" },
@@ -574,7 +575,7 @@
           { name: "Pink",        hex: "#f2b8c6" }
         ] },
 
-      { name: "Zigzag Graphic Tee", price: 140, badge: "New",
+      { name: "Zigzag Graphic Tee",  badge: "New",
         colors: [
           { name: "Gray",  hex: "#8e8e8e", images: ["NOF-IMG/IMG10.jpeg", "NOF-IMG/IMG6.jpeg", "NOF-IMG/IMG11.jpeg"] },
           { name: "Black", hex: "#111111" },
@@ -582,17 +583,17 @@
           { name: "Cream", hex: "#efe6d2" }
         ] },
 
-      { name: "Native Hoodie", price: 55,
+      { name: "Native Hoodie", 
         colors: [
           { name: "Forest Green", hex: "#1f5e3b", images: ["NOF-IMG/IMG4.jpeg", "NOF-IMG/IMG3.jpeg"] }
         ] },
 
-      { name: "Globe Tee", price: 180, badge: "New",
+      { name: "Globe Tee",  badge: "New",
         colors: [
           { name: "White", hex: "#f4f4f4", images: ["NOF-IMG/IMG16.jpeg", "NOF-IMG/IMG13.jpeg"] }
         ] },
 
-      { name: "Neo Eon One Tee", price: 220,
+      { name: "Neo Eon One Tee", 
         colors: [
           { name: "Gray",      hex: "#8e8e8e", images: ["NOF-IMG/IMG1.jpeg", "NOF-IMG/IMG2.jpeg"] },
           { name: "Off White", hex: "#f3f0e8" },
@@ -600,7 +601,7 @@
           { name: "Cream",     hex: "#efe6d2" }
         ] },
 
-      { name: "N Logo Hoodie", price: 110,
+      { name: "N Logo Hoodie", 
         colors: [
           { name: "Pine Green",  hex: "#234f3c", images: ["NOF-IMG/IMG5.jpeg", "NOF-IMG/IMG14.jpeg"] },
           { name: "Brown",       hex: "#6b4a2f" },   // add images: ["NOF-IMG/....jpeg"] when you have them
@@ -608,7 +609,7 @@
           { name: "Gray",        hex: "#8e8e8e" }
         ] },
 
-      { name: "Native Hoodies", price: 150, badge: "Coming Soon",
+      { name: "Native Hoodies",  badge: "Coming Soon",
         colors: [
           { name: "Vintage Black", hex: "#2b2b2b", images: ["NOF-IMG/IMG21.jpeg", "NOF-IMG/IMG17.jpeg", "NOF-IMG/IMG18.jpeg", "NOF-IMG/IMG19.jpeg", "NOF-IMG/IMG20.jpeg"] },
           { name: "Brown",       hex: "#6b4a2f" },   // add images: ["NOF-IMG/....jpeg"] when you have them
@@ -616,7 +617,7 @@
           { name: "Gray",        hex: "#8e8e8e" }
         ] },
 
-      { name: "Neo Eon One Tee", price: 75, badge: "Best Seller",
+      { name: "Neo Eon One Tee",  badge: "Best Seller",
         colors: [
           { name: "Navy", hex: "#1f2a44", images: ["NOF-IMG/IMG9.jpeg"] }
         ] },
@@ -637,6 +638,11 @@
       return withPhotos ? withPhotos.images : [p.img, p.hover].filter(Boolean);
     }
 
+    // Price label: shows nothing when a product has no price yet
+    function priceText(p) {
+      return (p.price === undefined || p.price === null || p.price === "") ? "" : `$${p.price}`;
+    }
+
     // ---- Product grid ----
     const grid = document.getElementById("productGrid");
     grid.innerHTML = products.map((p, i) => {
@@ -654,7 +660,7 @@
         <div class="product-info">
           <span class="name">${p.name}</span>
           <span class="meta">${colorText}</span>
-          <span>$${p.price}</span>
+          ${priceText(p) ? `<span>${priceText(p)}</span>` : ""}
         </div>
       </a>`;
     }).join("");
@@ -721,7 +727,7 @@
 
       $("qvBadge").textContent = p.badge || "";
       $("qvName").textContent = p.name;
-      $("qvPrice").textContent = `$${p.price}`;
+      $("qvPrice").textContent = priceText(p);
       $("qvDesc").textContent = p.description || defaultDesc;
 
       $("qvColors").innerHTML = qv.colors.map((c, n) =>
@@ -778,4 +784,4 @@
     document.addEventListener("keydown", e => { if (e.key === "Escape") closeQuickView(); });
   </script>
 </body>
-</html> 
+</html>
