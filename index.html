@@ -125,26 +125,27 @@
 
     /* ---------- Values cards ---------- */
     .values { padding: 88px 0 16px; }
+    .values-lower { padding-top: 72px; padding-bottom: 0; }
     .values-head { text-align: center; margin-bottom: 40px; }
     .values-head h2 { font-size: clamp(22px, 2.4vw, 32px); font-weight: 600; text-transform: uppercase; margin-top: 8px; }
-    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .values-grid { display: grid; gap: 16px; }
+    .values-grid.one { grid-template-columns: 1fr; max-width: 760px; margin: 0 auto; }
+    .values-grid.two { grid-template-columns: 1fr 1fr; }
     .value-card {
-      background: var(--black); color: var(--white);
-      border: 1px solid var(--black);
-      padding: 40px 32px; min-height: 340px;
-      display: flex; flex-direction: column;
-      transition: background .3s ease, color .3s ease, transform .3s ease;
+      background: var(--white); color: var(--black);
+      border: 1px solid var(--grey-200);
+      padding: 48px 40px;
+      display: flex; flex-direction: column; text-align: center;
     }
-    .value-card:hover { background: var(--white); color: var(--black); transform: translateY(-4px); }
     .value-num {
       font-size: 64px; font-weight: 700; line-height: 1; letter-spacing: -.02em;
-      color: transparent; -webkit-text-stroke: 1px currentColor;
+      color: var(--black);
     }
     .value-card h3 {
-      margin-top: auto; padding-top: 32px;
       font-size: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: .02em; line-height: 1.2;
     }
-    .value-card p { margin-top: 14px; font-size: 13px; line-height: 1.7; opacity: .8; }
+    .value-eyebrow { color: var(--grey-500); margin-bottom: 14px; }
+    .value-card p { margin-top: 14px; font-size: 13px; line-height: 1.7; color: #444; }
 
     /* ---------- Section heading ---------- */
     .section { padding: 72px 0 0; }
@@ -295,7 +296,8 @@
       .cart-count { right: -7px; }
       .hero { height: 78vh; min-height: 440px; }
       .values { padding-top: 64px; }
-      .values-grid { grid-template-columns: 1fr; gap: 12px; }
+      .values-grid.two { grid-template-columns: 1fr; gap: 12px; }
+      .values-lower { padding-top: 56px; }
       .value-card { min-height: 0; padding: 32px 24px; }
       .value-num { font-size: 48px; }
       .products {
@@ -392,28 +394,14 @@
       </div>
     </section>
 
-    <!-- Values cards -->
+    <!-- Value 01 (top of page) -->
     <section class="values" id="collections">
       <div class="container">
-        <div class="values-head">
-          <div class="eyebrow">What We Stand For</div>
-          <h2>Our Values</h2>
-        </div>
-        <div class="values-grid">
+        <div class="values-grid one">
           <div class="value-card">
-            <span class="value-num">01</span>
+            <div class="eyebrow value-eyebrow">What We Stand For</div>
             <h3>Look the Feel</h3>
             <p>What you wear should say how you feel. Every piece is made to carry its own character, so you can show up as yourself, without saying a word.</p>
-          </div>
-          <div class="value-card">
-            <span class="value-num">02</span>
-            <h3>The Status Quo Ain't Us</h3>
-            <p>Where others see waste, we see potential. We challenge the way fashion is made, giving discarded materials a second life instead of following the crowd.</p>
-          </div>
-          <div class="value-card">
-            <span class="value-num">03</span>
-            <h3>Borders Can't Stop the Unity</h3>
-            <p>Native of Earth belongs to everyone who shares the vision. Wherever you're from and wherever you're going, we're connected by the same roots.</p>
           </div>
         </div>
       </div>
@@ -430,6 +418,19 @@
       </div>
     </section>
 
+    <!-- Value: The Status Quo Ain't Us (below New Arrivals) -->
+    <section class="values values-lower">
+      <div class="container">
+        <div class="values-grid one">
+          <div class="value-card">
+            <div class="eyebrow value-eyebrow">What We Stand For</div>
+            <h3>The Status Quo Ain't Us</h3>
+            <p>Where others see waste, we see potential. We challenge the way fashion is made, giving discarded materials a second life instead of following the crowd.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Editorial banner -->
     <section class="container">
       <div class="editorial">
@@ -440,6 +441,19 @@
           <h2>Made for the Ground You Walk On</h2>
           <p>Heavyweight fabrics, earthy tones and cuts built to last. Explore the full Fall/Winter story.</p>
           <a href="#" class="btn btn-dark">View Lookbook</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Value: Borders Can't Stop the Unity (above Shop Men) -->
+    <section class="values values-lower">
+      <div class="container">
+        <div class="values-grid one">
+          <div class="value-card">
+            <div class="eyebrow value-eyebrow">What We Stand For</div>
+            <h3>Borders Can't Stop the Unity</h3>
+            <p>Native of Earth belongs to everyone who shares the vision. Wherever you're from and wherever you're going, we're connected by the same roots.</p>
+          </div>
         </div>
       </div>
     </section>
