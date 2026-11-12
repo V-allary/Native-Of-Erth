@@ -3,8 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Native of Earth | Menswear</title>
-  <meta name="description" content="Native of Earth — considered menswear. New arrivals, essentials and seasonal collections." />
+  <title>Native of Earth | Sustainable Streetwear Zurich, Switzerland</title>
+  <meta name="description" content="Sustainable, made-to-order streetwear from Zurich, Switzerland. Hoodies, tees and more made from innovative and upcycled materials." />
+  <link rel="canonical" href="https://nativeofearth.com/" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Open Graph / social previews -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Native of Earth" />
+  <meta property="og:title" content="Native of Earth | Sustainable Streetwear Zurich, Switzerland" />
+  <meta property="og:description" content="Sustainable, made-to-order streetwear from Zurich, Switzerland." />
+  <meta property="og:url" content="https://nativeofearth.com/" />
+  <meta property="og:image" content="https://nativeofearth.com/og-image.jpg" />
+  <meta property="og:image:alt" content="Native of Earth Fall/Winter campaign" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Native of Earth",
+    "url": "https://nativeofearth.com/",
+    "logo": "https://nativeofearth.com/apple-touch-icon.png",
+    "description": "Sustainable, made-to-order streetwear from Zurich, Switzerland.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Zurich",
+      "addressCountry": "CH"
+    }
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -33,6 +67,12 @@
     button { font: inherit; background: none; border: 0; cursor: pointer; color: inherit; }
     .container { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
     .eyebrow { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; }
+
+    /* Visually hidden text (still read by search engines and screen readers) */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
 
     /* ---------- Announcement bar ---------- */
     .announce {
@@ -387,10 +427,10 @@
   <main>
     <!-- Hero -->
     <section class="hero">
-      <img src="NOF-IMG/IMG7.jpeg" alt="Native of Earth Fall/Winter campaign" />
+      <img src="NOF-IMG/IMG7.jpeg" alt="Native of Earth Fall/Winter campaign" fetchpriority="high" />
       <div class="hero-caption">
         <div class="eyebrow">Fall / New look in town 2026</div>
-        <h1>Rooted in the Earth</h1>
+        <h1>Rooted in the Earth<span class="sr-only">: sustainable streetwear from Zurich, Switzerland</span></h1>
         <a href="#new" class="btn btn-light">Shop the Collection</a>
       </div>
     </section>
